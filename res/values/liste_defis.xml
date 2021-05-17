@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="liste_defis">
+        <item>Les saisons</item>
+        <item>Les animaux</item>
+        <item>Les pays</item>
+        <item>Les fruits</item>
+        <item>Les couleurs</item>
+        <item>La musique</item>
+        <item>Les astres</item>
+        <item>Les plantes</item>
+        <item>Les formes</item>
+        <item>Les personnages connus</item>
+    </string-array>
+
+</resources>

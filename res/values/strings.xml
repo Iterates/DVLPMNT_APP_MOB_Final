@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Les Petits Défis 1,2,3 GO !</string>
+    <string name="age">Je veux réaliser des défis pour les ...</string>
+    <string name="rad25">2 à 5 ans</string>
+    <string name="rad610">6 à 10 ans</string>
+    <string name="oncommence">On commence >>>></string>
+    <string name="titreListe">Voici les thèmes de vos défis :</string>
+    <string name="picto">À la chasse aux codes >>>> </string>
+    <string name="messagePays">Cliquez sur deux cases à la fois en essayant de trouvez les images identiques ! </string>
+    <string name="titrePays">Les Pays : Jeu de mémoire</string>
+    <string name="OK">Ok</string>
+    <string name="fdesc">Placez les fruits sur leur continent d\'origine!</string>
+    <string name="ftitle">Les fruits</string>
+    <string name="start">Commencer</string>
+    <string name="repok">Bonne réponse!</string>
+    <string name="repno">Mauvaise réponse...</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
