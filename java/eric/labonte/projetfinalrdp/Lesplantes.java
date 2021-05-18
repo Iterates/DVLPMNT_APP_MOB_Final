@@ -3,6 +3,7 @@ package eric.labonte.projetfinalrdp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -106,7 +107,10 @@ public class Lesplantes extends AppCompatActivity{
                 score.setText(String.format("Plantes défrichées : %d", pointage));
                 if(pointage == 25){
                     //Fin de partie
-                    CustomDialog cd = new CustomDialog(Lesplantes.this);
+                    Drawable bg = getResources().getDrawable(R.drawable.pushup);
+                    CustomDialog cd = new CustomDialog(Lesplantes.this, bg, "Faites 5 pompes");
+                    cd.setCancelable(false);
+                    cd.setCanceledOnTouchOutside(false);
                     cd.show();
                 }
             }

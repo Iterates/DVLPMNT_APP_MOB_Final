@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -150,7 +151,8 @@ public class Lespersonnagescelebres extends AppCompatActivity implements View.On
                 }
             }
             if(counter == 16){
-                CustomDialog cd = new CustomDialog(this);
+                Drawable bg = getResources().getDrawable(R.drawable.course);
+                CustomDialog cd = new CustomDialog(this, bg, "Faites la course jusqu'à la prochaine station");
                 cd.setCancelable(false);
                 cd.setCanceledOnTouchOutside(false);
                 cd.show();

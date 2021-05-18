@@ -10,5 +10,5 @@
     <color name="bleu">#FF2298D1</color>
     <color name="jaune">#FFfaba11</color>
     <color name="white">#FFFFFFFF</color>
-
+    <color name="grey">#808080</color>
 </resources>

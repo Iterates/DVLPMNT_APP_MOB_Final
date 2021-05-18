@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             if ( v == boutonVersListe)
             {
                 intent = new Intent(MainActivity.this, ListeDefisActivity.class);
-                if ( bouton25.isSelected())
+                if ( bouton25.isChecked())
                     intent.putExtra("categorie", "25");
                 else
                     intent.putExtra("categorie", "610");

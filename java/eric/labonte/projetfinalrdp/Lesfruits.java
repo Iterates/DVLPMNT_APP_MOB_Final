@@ -1,9 +1,13 @@
 package eric.labonte.projetfinalrdp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,9 +28,16 @@ import static android.view.DragEvent.ACTION_DROP;
 
 public class Lesfruits extends AppCompatActivity implements View.OnTouchListener, View.OnDragListener{
 
+    //TODO 1.Finaliser intent de retour
+    //     2.Placer ecouteur sur bouton du dialogue
+    //     3.Redefinir methode onSaveInstanceState
+    //     4.Serialiser singleton
+
+
     private final int COL_NUM = 5;
 
-    Vector<Integer>vImages = new Vector<Integer>();
+    ListeDefis ld = ListeDefis.getInstance();
+
     Integer[]listeFruits = new Integer[] {R.drawable.citron, R.drawable.ananas, R.drawable.cerise,
                                         R.drawable.abricot, R.drawable.banane, R.drawable.pomme,
                                         R.drawable.fraise, R.drawable.framboise, R.drawable.poire,
@@ -42,6 +53,8 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesfruits);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         parentFruit = findViewById(R.id.parentFruit);
         parentOrigine = findViewById(R.id.parentOrigine);
 
@@ -56,7 +69,7 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
                 TextView tv = new TextView(this);
                 tv.setTextSize(15);
                 tv.setGravity(11);
-                iv.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1));
+                iv.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
                 tv.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1));
                 iv.setTag(listeOrigines[index]);
                 tv.setTag(listeOrigines[index]);
@@ -87,28 +100,28 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
                 break;
             case ACTION_DROP :
                 if(view.getTag() == v.getTag()){
-                    Toast.makeText(this, R.string.repok, Toast.LENGTH_LONG).show();
-                    TableRow parent = (TableRow)view.getParent();
-                    parent.removeView(view);
                     counter++;
+                    Toast.makeText(this, String.format("%d", counter), Toast.LENGTH_SHORT).show();
+                    TableRow parent = (TableRow)view.getParent();
+                    view.setOnTouchListener(null);
+                    view.setBackground(getDrawable(R.color.grey));
+//                    parent.removeView(view);
                 }
                 else{
-                    Toast.makeText(this, R.string.repno, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.repno, Toast.LENGTH_SHORT).show();
                     view.setVisibility(View.VISIBLE);
                 }
                 break;
             case ACTION_DRAG_ENDED :
                 v.setBackground(getDrawable(R.color.white));
-                if(counter == 10){
-                   CustomDialog cd = new CustomDialog(Lesfruits.this);
-                   ImageView cdimageView = findViewById(R.id.cdimageView);
-                   cdimageView.setBackground(getResources().getDrawable(R.drawable.tournete));
-                   TextView cdtextView = findViewById(R.id.cdtextView);
-                   Button cdbutton = findViewById(R.id.cdButton);
-                   cdbutton.setOnClickListener(v1 -> {
+                if(counter >= 1){
+                    ld.ajouterDefiReussi("Les fruits", "610");
+                    Drawable bg = getResources().getDrawable(R.drawable.tournetete);
+                    CustomDialog cd = new CustomDialog(Lesfruits.this, bg, "Faites 5 rotations de la tête");
+                    cd.setCancelable(false);
+                    cd.setCanceledOnTouchOutside(false);
+                    cd.show();
 
-                   });
-                   cd.show();
                 }
                 break;
         }
@@ -131,5 +144,10 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
         builder.setPositiveButton(R.string.OK, null);
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 }

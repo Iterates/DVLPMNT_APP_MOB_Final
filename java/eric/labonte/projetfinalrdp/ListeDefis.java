@@ -33,17 +33,17 @@ public class ListeDefis implements Serializable {
         listeDeReussite25.put ( "Les formes", new Defi( "Les formes", "25", "faites 5 sautillements sur place"));
         listeDeReussite25.put ( "Les personnages connus", new Defi( "Les personnages connus", "25", "faites la course jusqu'à la prochaine station"));
      listeDeReussite610 = new Hashtable();
-        listeDeReussite610.put ( "Les saisons", new Defi( "Les saisons", "25", "faites 5 étirements des bras"));
-        listeDeReussite610.put ( "Les animaux", new Defi( "Les animaux", "25", "faites 5 étirements des jambes"));
-        listeDeReussite610.put ( "Les pays", new Defi( "Les pays", "25", "mettez vos mains ur vos hanches et faites 5 rotations des hanches "));
-        listeDeReussite610.put ( "Les fruits", new Defi( "Les fruits", "25", "faites 5 rotations de la tête"));
-        listeDeReussite610.put ( "Les couleurs", new Defi( "Les couleurs", "25", "faites 5 pas en arrière"));
-        listeDeReussite610.put ( "La musique", new Defi( "La musique", "25", "faites 5 sauts les jambes écartées"));
-        listeDeReussite610.put ( "Les astres", new Defi( "Les astres", "25", "asseyez-vous sur le gazon et touché le bout de vos pieds avec vos\n" +
+        listeDeReussite610.put ( "Les saisons", new Defi( "Les saisons", "610", "faites 5 étirements des bras"));
+        listeDeReussite610.put ( "Les animaux", new Defi( "Les animaux", "610", "faites 5 étirements des jambes"));
+        listeDeReussite610.put ( "Les pays", new Defi( "Les pays", "610", "mettez vos mains ur vos hanches et faites 5 rotations des hanches "));
+        listeDeReussite610.put ( "Les fruits", new Defi( "Les fruits", "610", "faites 5 rotations de la tête"));
+        listeDeReussite610.put ( "Les couleurs", new Defi( "Les couleurs", "610", "faites 5 pas en arrière"));
+        listeDeReussite610.put ( "La musique", new Defi( "La musique", "610", "faites 5 sauts les jambes écartées"));
+        listeDeReussite610.put ( "Les astres", new Defi( "Les astres", "610", "asseyez-vous sur le gazon et touché le bout de vos pieds avec vos\n" +
                 "mains 5 fois"));
-        listeDeReussite610.put ( "Les plantes", new Defi( "Les plantes", "25", "faites 5 pompes"));
-        listeDeReussite610.put ( "Les formes", new Defi( "Les formes", "25", "faites 5 sautillements sur place"));
-        listeDeReussite610.put ( "Les personnages connus", new Defi( "Les personnages connus", "25", "faites la course jusqu'à la prochaine station"));
+        listeDeReussite610.put ( "Les plantes", new Defi( "Les plantes", "610", "faites 5 pompes"));
+        listeDeReussite610.put ( "Les formes", new Defi( "Les formes", "610", "faites 5 sautillements sur place"));
+        listeDeReussite610.put ( "Les personnages connus", new Defi( "Les personnages connus", "610", "faites la course jusqu'à la prochaine station"));
 
     }
 
