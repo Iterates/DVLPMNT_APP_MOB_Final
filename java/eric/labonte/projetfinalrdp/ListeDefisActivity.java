@@ -2,6 +2,7 @@ package eric.labonte.projetfinalrdp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.text.Normalizer;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -27,11 +30,13 @@ public class ListeDefisActivity extends AppCompatActivity {
     Button boutonQr;
    // ArrayAdapter adaptateur;
     ArrayAdapterPerso adaptateur;
+    ListeDefis instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_defis);
+        instance = ListeDefis.getInstance(this);
         boutonQr = findViewById ( R.id.boutonQr);
         listeDesThemes = findViewById ( R.id.listeDefis);
         listeDesThemes.setChoiceMode(2); // plusieurs choix
@@ -39,9 +44,9 @@ public class ListeDefisActivity extends AppCompatActivity {
         categorieAge = getIntent().getStringExtra("categorie");
         Hashtable<String, Defi> table;
         if ( categorieAge.equals("25"))
-           table =   ListeDefis.getInstance().getListeDeReussite25();
+           table =   ListeDefis.getInstance(this).getListeDeReussite25();
         else
-            table =  ListeDefis.getInstance().getListeDeReussite610();
+            table =  ListeDefis.getInstance(this).getListeDeReussite610();
         /*
         ListeDefis.getInstance().ajouterDefiReussi("Les pays", "610");
         */
@@ -57,9 +62,22 @@ public class ListeDefisActivity extends AppCompatActivity {
         Ecouteur ec = new Ecouteur();
 
         boutonQr.setOnClickListener(ec);
+    }
 
-
-
+    @Override
+    protected void onStop(){
+        super.onStop();
+        try{
+            FileOutputStream fos = openFileOutput("fichier.ser", Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            ListeDefis instance = ListeDefis.getInstance(this);
+            oos.writeObject(instance);
+            oos.flush();
+            oos.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     private class Ecouteur implements View.OnClickListener {
@@ -97,6 +115,9 @@ public class ListeDefisActivity extends AppCompatActivity {
         else{
             //Retour de l'activité du défi
             super.onActivityResult(requestCode, resultCode, retour);
+            if(requestCode == 111 && resultCode == RESULT_OK){
+
+            }
         }
 
     }

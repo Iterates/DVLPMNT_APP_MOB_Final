@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import static android.app.Activity.RESULT_OK;
 
 public class CustomDialog extends Dialog {
 
@@ -19,7 +22,6 @@ public class CustomDialog extends Dialog {
     Button cdButton;
     private Drawable bg;
     private String txt;
-    private Bundle b;
 
     public CustomDialog(@NonNull Context context, Drawable bg, String txt) {
         super(context);
@@ -40,7 +42,7 @@ public class CustomDialog extends Dialog {
         cdtextView.setText(this.txt);
 
         cdButton.setOnClickListener(v -> {
-
+            dismiss();
         });
     }
 }

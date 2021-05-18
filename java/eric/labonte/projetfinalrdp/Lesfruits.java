@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -35,8 +36,6 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
 
 
     private final int COL_NUM = 5;
-
-    ListeDefis ld = ListeDefis.getInstance();
 
     Integer[]listeFruits = new Integer[] {R.drawable.citron, R.drawable.ananas, R.drawable.cerise,
                                         R.drawable.abricot, R.drawable.banane, R.drawable.pomme,
@@ -115,13 +114,18 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
             case ACTION_DRAG_ENDED :
                 v.setBackground(getDrawable(R.color.white));
                 if(counter >= 1){
-                    ld.ajouterDefiReussi("Les fruits", "610");
                     Drawable bg = getResources().getDrawable(R.drawable.tournetete);
                     CustomDialog cd = new CustomDialog(Lesfruits.this, bg, "Faites 5 rotations de la tête");
                     cd.setCancelable(false);
                     cd.setCanceledOnTouchOutside(false);
                     cd.show();
-
+                    cd.setOnDismissListener((d)->{
+                        Intent retour = new Intent();
+                        retour.putExtra("defi", "Les fruits");
+                        retour.putExtra("categorie", "610");
+                        setResult(RESULT_OK, retour);
+                        finish();
+                    });
                 }
                 break;
         }
@@ -146,8 +150,4 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
         dialog.show();
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
 }

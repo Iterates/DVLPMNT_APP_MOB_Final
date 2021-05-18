@@ -1,5 +1,9 @@
 package eric.labonte.projetfinalrdp;
 
+import android.content.Context;
+
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -10,10 +14,18 @@ public class ListeDefis implements Serializable {
     private static ListeDefis instance;
     private Hashtable<String, Defi> listeDeReussite25;
     private Hashtable<String, Defi> listeDeReussite610;
-    public static ListeDefis getInstance()
-    {
-        if ( instance == null)
-            instance = new ListeDefis();
+    public static ListeDefis getInstance(Context context){
+        if ( instance == null){
+            try{
+                FileInputStream fis = context.openFileInput("fichier.ser");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                instance = (ListeDefis)ois.readObject();
+                ois.close();
+            }
+            catch(Exception e){
+                instance = new ListeDefis();
+            }
+        }
         return instance;
     }
 

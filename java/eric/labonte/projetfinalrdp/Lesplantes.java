@@ -3,6 +3,7 @@ package eric.labonte.projetfinalrdp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -111,6 +112,13 @@ public class Lesplantes extends AppCompatActivity{
                     CustomDialog cd = new CustomDialog(Lesplantes.this, bg, "Faites 5 pompes");
                     cd.setCancelable(false);
                     cd.setCanceledOnTouchOutside(false);
+                    cd.setOnDismissListener((d)->{
+                      Intent retour = new Intent();
+                      retour.putExtra("defi", "Les plantes");
+                      retour.putExtra("categorie", "610");
+                      setResult(RESULT_OK, retour);
+                      finish();
+                    });
                     cd.show();
                 }
             }
@@ -120,7 +128,7 @@ public class Lesplantes extends AppCompatActivity{
     private class Populate extends Thread{
 
         Handler handler = new Handler();
-
+        //Runnable afin de pouvoir modifier l'interface graphique en dehors du fil d'exécution
         public void run(){
             runOnUiThread(new Runnable(){
                 @Override

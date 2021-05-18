@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -155,6 +156,13 @@ public class Lespersonnagescelebres extends AppCompatActivity implements View.On
                 CustomDialog cd = new CustomDialog(this, bg, "Faites la course jusqu'à la prochaine station");
                 cd.setCancelable(false);
                 cd.setCanceledOnTouchOutside(false);
+                cd.setOnDismissListener((d)->{
+                    Intent retour = new Intent();
+                    retour.putExtra("defi", "Les personnages connus");
+                    retour.putExtra("categorie", "25");
+                    setResult(RESULT_OK, retour);
+                    finish();
+                });
                 cd.show();
             }
         }
