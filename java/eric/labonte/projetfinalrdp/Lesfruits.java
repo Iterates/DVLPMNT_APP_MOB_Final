@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -34,6 +35,7 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
                                          "Malaysie", "Asie Centrale", "Europe", "Asie de l'Est",
                                          "Chine", "Moyen-Orient"};
     TableLayout parentFruit, parentOrigine;
+    int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,12 +90,26 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
                     Toast.makeText(this, R.string.repok, Toast.LENGTH_LONG).show();
                     TableRow parent = (TableRow)view.getParent();
                     parent.removeView(view);
+                    counter++;
                 }
                 else{
                     Toast.makeText(this, R.string.repno, Toast.LENGTH_LONG).show();
+                    view.setVisibility(View.VISIBLE);
                 }
                 break;
             case ACTION_DRAG_ENDED :
+                v.setBackground(getDrawable(R.color.white));
+                if(counter == 10){
+                   CustomDialog cd = new CustomDialog(Lesfruits.this);
+                   ImageView cdimageView = findViewById(R.id.cdimageView);
+                   cdimageView.setBackground(getResources().getDrawable(R.drawable.tournete));
+                   TextView cdtextView = findViewById(R.id.cdtextView);
+                   Button cdbutton = findViewById(R.id.cdButton);
+                   cdbutton.setOnClickListener(v1 -> {
+
+                   });
+                   cd.show();
+                }
                 break;
         }
         return true;
