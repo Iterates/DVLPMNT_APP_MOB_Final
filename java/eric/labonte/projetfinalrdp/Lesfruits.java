@@ -13,6 +13,7 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -29,12 +30,6 @@ import static android.view.DragEvent.ACTION_DROP;
 
 public class Lesfruits extends AppCompatActivity implements View.OnTouchListener, View.OnDragListener{
 
-    //TODO 1.Finaliser intent de retour
-    //     2.Placer ecouteur sur bouton du dialogue
-    //     3.Redefinir methode onSaveInstanceState
-    //     4.Serialiser singleton
-
-
     private final int COL_NUM = 5;
 
     Integer[]listeFruits = new Integer[] {R.drawable.citron, R.drawable.ananas, R.drawable.cerise,
@@ -45,7 +40,8 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
                                          "Malaysie", "Asie Centrale", "Europe", "Asie de l'Est",
                                          "Chine", "Moyen-Orient"};
     TableLayout parentFruit, parentOrigine;
-    int counter = 0;
+    Chronometer timer;
+    int counter = 0, timeCounter = 180;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +52,11 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
 
         parentFruit = findViewById(R.id.parentFruit);
         parentOrigine = findViewById(R.id.parentOrigine);
+        timer = findViewById(R.id.timer);
 
         creerAlertDialog(R.string.fdesc);
+
+        timer.setOnChronometerTickListener(chronometer -> onChronometerTickHandler());
 
         for(int i = 0; i < 2; i++){
             TableRow toAppendOne = (TableRow)parentFruit.getChildAt(i);
@@ -66,7 +65,7 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
                 int index = (i * COL_NUM) + j;
                 ImageView iv = new ImageView(this);
                 TextView tv = new TextView(this);
-                tv.setTextSize(15);
+                tv.setTextSize(12);
                 tv.setGravity(11);
                 iv.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
                 tv.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1));
@@ -81,6 +80,15 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
             }
         }
 
+    }
+
+    private void onChronometerTickHandler() {
+        timer.setText(String.format("%02d : %02d", (int)Math.floor(timeCounter/60), timeCounter%60));
+        timeCounter--;
+        if(timeCounter == 0){
+            Intent i = new Intent(Lesfruits.this, ListeDefis.class);
+            startActivity(i);
+        }
     }
 
     @Override
@@ -100,20 +108,22 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
             case ACTION_DROP :
                 if(view.getTag() == v.getTag()){
                     counter++;
-                    Toast.makeText(this, String.format("%d", counter), Toast.LENGTH_SHORT).show();
-                    TableRow parent = (TableRow)view.getParent();
+                    Toast.makeText(this, R.string.repok, Toast.LENGTH_SHORT).show();
+                    //Si c'est une bonne réponse, retrait de l'écouteur sur la vue correpondante
                     view.setOnTouchListener(null);
                     view.setBackground(getDrawable(R.color.grey));
-//                    parent.removeView(view);
                 }
                 else{
+                    //Sinon affichage d'un message
                     Toast.makeText(this, R.string.repno, Toast.LENGTH_SHORT).show();
                     view.setVisibility(View.VISIBLE);
                 }
                 break;
             case ACTION_DRAG_ENDED :
                 v.setBackground(getDrawable(R.color.white));
-                if(counter >= 1){
+                view.setVisibility(View.VISIBLE);
+                //Fin de l'activité
+                if(counter >= 10){
                     Drawable bg = getResources().getDrawable(R.drawable.tournetete);
                     CustomDialog cd = new CustomDialog(Lesfruits.this, bg, "Faites 5 rotations de la tête");
                     cd.setCancelable(false);
@@ -147,6 +157,7 @@ public class Lesfruits extends AppCompatActivity implements View.OnTouchListener
                 .setTitle(R.string.ftitle);
         builder.setPositiveButton(R.string.OK, null);
         AlertDialog dialog = builder.create();
+        dialog.setOnDismissListener(d->timer.start());
         dialog.show();
     }
 

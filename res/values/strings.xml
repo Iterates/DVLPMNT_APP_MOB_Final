@@ -9,7 +9,7 @@
     <string name="messagePays">Cliquez sur deux cases à la fois en essayant de trouvez les images identiques ! </string>
     <string name="titrePays">Les Pays : Jeu de mémoire</string>
     <string name="OK">Ok</string>
-    <string name="fdesc">Placez les fruits sur leur continent d\'origine!</string>
+    <string name="fdesc">Placez les fruits sur leur région d\'origine!</string>
     <string name="ftitle">Les fruits</string>
     <string name="start">Commencer</string>
     <string name="repok">Bonne réponse!</string>

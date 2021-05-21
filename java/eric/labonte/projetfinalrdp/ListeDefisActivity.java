@@ -116,6 +116,15 @@ public class ListeDefisActivity extends AppCompatActivity {
             //Retour de l'activité du défi
             super.onActivityResult(requestCode, resultCode, retour);
             if(requestCode == 111 && resultCode == RESULT_OK){
+               String categorie = retour.getStringExtra("categorie");
+               String defi = retour.getStringExtra("defi");
+               //Ajout du défi réussi dans le singleton
+               instance.ajouterDefiReussi(defi, categorie);
+               //Recherche du défi complété dans le singleton
+               Defi d = categorie.equals("25") ? instance.getListeDeReussite25().get(defi) : instance.getListeDeReussite610().get(defi);
+               //Recherche de la position du défi dans l'adaptateur, afin de cocher la case correspondante dans la view
+               int pos = adaptateur.getPosition(d);
+               listeDesThemes.setItemChecked(pos, true);
 
             }
         }

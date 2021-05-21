@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,8 +23,7 @@ public class Lesplantes extends AppCompatActivity{
 
     private final int GRID_SIZE = 64;
     private final int COL_COUNT = 8;
-
-    protected int pointage = 0;
+    private int pointage = 0;
 
     Populate p = new Populate();
     Vector<Integer> plants = new Vector<Integer>();
@@ -39,11 +40,15 @@ public class Lesplantes extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesplantes);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         creerAlertDialog("Défrichez le lac avant qu'il ne soit envahi!");
 
         parent = findViewById(R.id.fcparent);
         buttonStart = findViewById(R.id.buttonStart);
         score = findViewById(R.id.score);
+
+        score.setText(String.format("Plantes défrichées : %d", pointage));
 
         rando = new Random();
 
@@ -103,8 +108,8 @@ public class Lesplantes extends AppCompatActivity{
                 if (!grid.elementAt((row * col) + row).equals("w")) {
                     v.setBackground(getResources().getDrawable(water.elementAt(rando.nextInt(4))));
                     grid.set((row * col) + row, "w");
+                    pointage++;
                 }
-                pointage++;
                 score.setText(String.format("Plantes défrichées : %d", pointage));
                 if(pointage == 25){
                     //Fin de partie

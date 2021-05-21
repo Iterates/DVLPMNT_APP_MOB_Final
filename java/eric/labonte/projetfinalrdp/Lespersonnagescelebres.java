@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,8 @@ public class Lespersonnagescelebres extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lespersonnagescelebres);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         creerAlertDialog("Associez les paires de personnages célèbres!");
 
@@ -73,18 +76,18 @@ public class Lespersonnagescelebres extends AppCompatActivity implements View.On
         }
     }
 
-    public void creerAlertDialog(String msg) {
+    @Override
+    public void onStart(){
+        super.onStart();
+    }
+
+    public void creerAlertDialog(String msg){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Lespersonnagescelebres.this);
-        final View customLayout = getLayoutInflater().inflate(R.layout.dialogue, null);
-        builder.setView(customLayout);
-        TextView tv = customLayout.findViewById(R.id.dialogueTextView);
-        tv.setText(msg);
-        ImageView iv = customLayout.findViewById(R.id.dialogueImageView);
-        iv.setBackground(getDrawable(R.drawable.arrendt));
-//        builder.setMessage(msg)
-        builder.setTitle("Les personnages célèbres");
-        builder.setPositiveButton("Ok", null);
+
+        builder.setMessage(msg)
+                .setTitle("Les personnages célèbres");
+
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -153,7 +156,7 @@ public class Lespersonnagescelebres extends AppCompatActivity implements View.On
             }
             if(counter == 16){
                 Drawable bg = getResources().getDrawable(R.drawable.course);
-                CustomDialog cd = new CustomDialog(this, bg, "Faites la course jusqu'à la prochaine station");
+                CustomDialog cd = new CustomDialog(this, bg, "Faites la course jusqu'à la \n prochaine station");
                 cd.setCancelable(false);
                 cd.setCanceledOnTouchOutside(false);
                 cd.setOnDismissListener((d)->{
